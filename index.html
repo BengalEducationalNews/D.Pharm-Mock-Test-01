@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D.Pharm Mock Test–01 | BENGAL EDUCATIONAL NEWS</title>
+    <!-- Google Fonts & FontAwesome Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #3b82f6;
+            --accent-color: #2563eb;
+            --bg-color: #f1f5f9;
+            --card-bg: #ffffff;
+            --text-color: #1e293b;
+            --success-color: #16a34a;
+            --danger-color: #dc2626;
+            --warning-color: #d97706;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 750px;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a, #2563eb);
+            color: white;
+            text-align: center;
+            padding: 25px 20px;
+            position: relative;
+        }
+
+        .header h1 {
+            font-size: 22px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 5px;
+        }
+
+        .header p.tagline {
+            font-size: 13px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+
+        .header .contact-info {
+            font-size: 11px;
+            margin-top: 10px;
+            opacity: 0.8;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .test-meta {
+            background: #e2e8f0;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            color: #334155;
+        }
+
+        .content {
+            padding: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: var(--secondary-color);
+            outline: none;
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px;
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn:hover {
+            background-color: var(--primary-color);
+        }
+
+        .admin-link {
+            text-align: center;
+            margin-top: 15px;
+        }
+
+        .admin-link button {
+            background: none;
+            border: none;
+            color: var(--secondary-color);
+            cursor: pointer;
+            text-decoration: underline;
+            font-size: 13px;
+        }
+
+        /* Question Screen Styles */
+        .timer-bar {
+            width: 100%;
+            background-color: #e2e8f0;
+            height: 8px;
+            border-radius: 4px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .timer-progress {
+            height: 100%;
+            width: 100%;
+            background-color: var(--secondary-color);
+            transition: width 1s linear;
+        }
+
+        .question-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .q-number {
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .timer-text {
+            font-weight: 700;
+            color: var(--danger-color);
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .question-text {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            line-height: 1.5;
+        }
+
+        .options-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .option-btn {
+            padding: 14px;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            background: white;
+            text-align: left;
+            font-size: 15px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .option-btn:hover {
+            background: #eff6ff;
+            border-color: var(--secondary-color);
+        }
+
+        .option-btn.selected {
+            background: #dbeafe;
+            border-color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        /* Results Screen */
+        .result-box {
+            text-align: center;
+            padding: 20px;
+            background: #f8fafc;
+            border-radius: 12px;
+            margin-bottom: 20px;
+        }
+
+        .score-circle {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: var(--primary-color);
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 0 auto 15px auto;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .score-circle .number {
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        .score-circle .label {
+            font-size: 11px;
+            opacity: 0.8;
+        }
+
+        .message-card {
+            background: #eff6ff;
+            border-left: 4px solid var(--secondary-color);
+            padding: 15px;
+            border-radius: 0 8px 8px 0;
+            margin-bottom: 20px;
+            font-size: 13.5px;
+            line-height: 1.6;
+            text-align: left;
+        }
+
+        .wa-btn {
+            background-color: #25d366;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            transition: background 0.3s ease;
+        }
+
+        .wa-btn:hover {
+            background-color: #128c7e;
+        }
+
+        /* Detailed Answer Key Sheet */
+        .answer-key-container {
+            margin-top: 25px;
+            text-align: left;
+        }
+
+        .q-review-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .q-review-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+
+        .q-review-ans {
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .q-review-note {
+            font-size: 12px;
+            background: #fffbe2;
+            color: #856404;
+            padding: 8px;
+            border-radius: 4px;
+            margin-top: 6px;
+        }
+
+        .correct-text { color: var(--success-color); font-weight: 600; }
+        .wrong-text { color: var(--danger-color); font-weight: 600; }
+
+        /* Admin Table */
+        .admin-table-container {
+            overflow-x: auto;
+            margin-top: 15px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+        }
+
+        table, th, td {
+            border: 1px solid #cbd5e1;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .hidden { display: none !important; }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- Header Section -->
+        <div class="header">
+            <h1>BENGAL EDUCATIONAL NEWS</h1>
+            <p class="tagline">“Practice Today, Succeed Tomorrow!”</p>
+            <div class="contact-info">
+                <span><i class="fas fa-phone"></i> 9932948196</span>
+                <span><i class="fas fa-envelope"></i> bengaleducationalnews@gmail.com</span>
+            </div>
+        </div>
+
+        <div class="test-meta">
+            <span>D.Pharm Mock Test–01</span>
+            <span>📅 Date: 18/10/2026</span>
+        </div>
+
+        <!-- SCREEN 1: Registration Form -->
+        <div id="start-screen" class="content">
+            <h2 style="text-align: center; margin-bottom: 20px; font-size: 18px; color: var(--primary-color);">পরীক্ষার্থীর তথ্য প্রদান করুন</h2>
+            <div>
+                <div class="form-group">
+                    <label for="name">Student Name (শিক্ষার্থীর নাম) *</label>
+                    <input type="text" id="name" placeholder="আপনার পুরো নাম লিখুন">
+                </div>
+                <div class="form-group">
+                    <label for="mobile">Mobile No (মোবাইল নম্বর) *</label>
+                    <input type="tel" id="mobile" placeholder="১০ ডিজিটের মোবাইল নম্বর">
+                </div>
+                <div class="form-group">
+                    <label for="district">District Name (জেলার নাম) *</label>
+                    <input type="text" id="district" placeholder="আপনার জেলার নাম">
+                </div>
+                <button type="button" class="btn" onclick="startExam()"><i class="fas fa-play"></i> Mock Test শুরু করুন</button>
+            </div>
+            <div class="admin-link">
+                <button type="button" onclick="showAdminLogin()">Admin Panel Access</button>
+            </div>
+        </div>
+
+        <!-- SCREEN 2: Exam Questions -->
+        <div id="quiz-screen" class="content hidden">
+            <div class="timer-bar">
+                <div id="timer-progress" class="timer-progress"></div>
+            </div>
+            
+            <div class="question-header">
+                <span class="q-number" id="q-counter">Question 1/20</span>
+                <span class="timer-text"><i class="fas fa-clock"></i> <span id="timer-sec">30</span>s</span>
+            </div>
+
+            <div class="question-text" id="question-text">Loading question...</div>
+
+            <div class="options-list" id="options-container">
+                <!-- Options populated dynamically -->
+            </div>
+
+            <div style="margin-top: 25px;">
+                <button id="next-btn" class="btn" onclick="nextQuestion()" disabled>পরবর্তী প্রশ্ন <i class="fas fa-arrow-right"></i></button>
+            </div>
+        </div>
+
+        <!-- SCREEN 3: Exam Finished / Submit -->
+        <div id="submit-screen" class="content hidden" style="text-align: center;">
+            <i class="fas fa-check-circle" style="font-size: 60px; color: var(--success-color); margin-bottom: 15px;"></i>
+            <h2>Mock Test সম্পন্ন হয়েছে!</h2>
+            <p style="margin: 10px 0 20px 0; font-size: 14px; color: #64748b;">আপনার সকল উত্তর সফলভাবে সংগৃহীত হয়েছে। ফলাফল দেখতে নিচের বোতামে ক্লিক করুন।</p>
+            <button class="btn" id="submit-test-btn" onclick="submitTest()"><i class="fas fa-poll"></i> Result View Sheet</button>
+        </div>
+
+        <!-- SCREEN 4: Results & Details Sheet -->
+        <div id="result-screen" class="content hidden">
+            <div class="result-box">
+                <div class="score-circle">
+                    <span class="number" id="final-score">0/20</span>
+                    <span class="label">Total Score</span>
+                </div>
+                <h3>পরীক্ষার ফলাফল</h3>
+                <p id="student-summary" style="font-size: 13px; color: #64748b; margin-top: 5px;"></p>
+            </div>
+
+            <div class="message-card">
+                <p><strong>BENGAL EDUCATIONAL NEWS</strong>-এর পক্ষ থেকে আপনাদের জন্য এটি একটি নতুন উদ্যোগ। আপনারা আমাদের সঙ্গে যুক্ত হন এবং সরকারি চাকরির প্রস্তুতিকে আরও শক্তিশালী করে তুলুন।</p>
+                <p style="margin-top: 8px;">আমরা সরকারি কলেজের অভিজ্ঞ শিক্ষকদের সহযোগিতায় এই Mock Test-এর প্রশ্নপত্রগুলি প্রস্তুত করেছি। আমাদের লক্ষ্য হলো, আগামী দিনে HRB Pharmacist Examination-সহ অন্যান্য Pharmacist Recruitment Examination-এর প্রস্তুতিতে আপনাদের সাহায্য করা।</p>
+                <p style="margin-top: 8px;">নিয়মিত MCQ অনুশীলনের মাধ্যমে নিজেদের প্রস্তুতি যাচাই করুন, ভুলগুলি সংশোধন করুন এবং আত্মবিশ্বাসের সঙ্গে পরীক্ষার জন্য এগিয়ে চলুন। আমাদের সঙ্গে যুক্ত হন, নিয়মিত Mock Test দিন এবং প্রস্তুতিকে আরও মজবুত করুন।</p>
+            </div>
+
+            <a href="https://chat.whatsapp.com/I4h1MNnfAOV6QLNQthX7K5" target="_blank" class="wa-btn">
+                <i class="fab fa-whatsapp" style="font-size: 20px;"></i> Join Mock Test WhatsApp Group
+            </a>
+
+            <div style="text-align: center; font-weight: 600; color: var(--primary-color); margin: 15px 0;">
+                আপনার প্রস্তুতিতে পাশে আছি, সাফল্যের পথে এগিয়ে চলুন।
+            </div>
+
+            <button class="btn" style="background: #475569;" onclick="toggleAnswerKey()">
+                <i class="fas fa-file-alt"></i> Answer Sheet & Explanations (উত্তরপত্র দেখুন)
+            </button>
+
+            <!-- Detailed Answer Sheet Display -->
+            <div id="answer-key-section" class="answer-key-container hidden">
+                <h3 style="margin-bottom: 15px; border-bottom: 2px solid #e2e8f0; padding-bottom: 8px;">Question & Answer Key</h3>
+                <div id="answers-list"></div>
+            </div>
+        </div>
+
+        <!-- SCREEN 5: Admin Panel -->
+        <div id="admin-screen" class="content hidden">
+            <h2 style="margin-bottom: 15px; color: var(--primary-color);">Admin Panel (Submitted Results)</h2>
+            <div class="admin-table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Mobile</th>
+                            <th>District</th>
+                            <th>Score</th>
+                            <th>Date/Time</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-data-rows">
+                        <!-- Admin Records populated here -->
+                    </tbody>
+                </table>
+            </div>
+            <button class="btn" style="margin-top: 20px; background: #64748b;" onclick="showStartScreen()">Back to Home</button>
+        </div>
+
+    </div>
+
+    <script>
+        const questions = [
+            {
+                q: "Q1. In which year was the first edition of the Indian Pharmacopoeia published?",
+                options: ["A) 1948", "B) 1946", "C) 1955", "D) 1966"],
+                ans: "C) 1955",
+                note: ""
+            },
+            {
+                q: "Q2. What is the percentage of sucrose in simple syrup according to the Indian Pharmacopoeia?",
+                options: ["A) 65.5%", "B) 66.7%", "C) 85%", "D) 60%"],
+                ans: "B) 66.7%",
+                note: ""
+            },
+            {
+                q: "Q3. Which of the following is an example of a diluent used in tablets?",
+                options: ["A) Talc", "B) Mannitol", "C) Lactose", "D) Cellulose"],
+                ans: "C) Lactose",
+                note: ""
+            },
+            {
+                q: "Q4. Unequal distribution of colour on a tablet is called:",
+                options: ["A) Chipping", "B) Capping", "C) Mottling", "D) All of the above"],
+                ans: "C) Mottling",
+                note: ""
+            },
+            {
+                q: "Q5. What is the largest standard size of a hard gelatin capsule?",
+                options: ["A) 000", "B) 00", "C) 0", "D) 1"],
+                ans: "A) 000",
+                note: ""
+            },
+            {
+                q: "Q6. What is the commonly used temperature for autoclaving?",
+                options: ["A) 110°C", "B) 100°C", "C) 115°C", "D) 90°C"],
+                ans: "C) 115°C",
+                note: "Note: Autoclaving temperature depends on the sterilization cycle. A commonly used standard cycle is 121°C at approximately 15 psi for 15–20 minutes."
+            },
+            {
+                q: "Q7. On which principle does a hammer mill operate?",
+                options: ["A) Cutting", "B) Compression", "C) Impact", "D) Attrition"],
+                ans: "C) Impact",
+                note: ""
+            },
+            {
+                q: "Q8. In which year was the Pharmacy Act enacted in India?",
+                options: ["A) 1947", "B) 1946", "C) 1948", "D) 1950"],
+                ans: "C) 1948",
+                note: ""
+            },
+            {
+                q: "Q9. Which schedule of the Drugs and Cosmetics Rules contains the list of prescription drugs that require special caution?",
+                options: ["A) Schedule G", "B) Schedule H", "C) Schedule X", "D) Schedule M"],
+                ans: "B) Schedule H",
+                note: ""
+            },
+            {
+                q: "Q10. What is the antidote for atropine poisoning?",
+                options: ["A) Calcium", "B) Lead", "C) Physostigmine", "D) Glucose"],
+                ans: "C) Physostigmine",
+                note: ""
+            },
+            {
+                q: "Q11. Which of the following is an H₂-receptor antagonist?",
+                options: ["A) Morphine", "B) Ranitidine", "C) Pantoprazole", "D) Aspirin"],
+                ans: "B) Ranitidine",
+                note: ""
+            },
+            {
+                q: "Q12. Which of the following is an example of an antitussive drug?",
+                options: ["A) Codeine", "B) Noscapine", "C) Chlorpheniramine", "D) All of the above"],
+                ans: "A) Codeine",
+                note: "Note: Noscapine is also an antitussive. Chlorpheniramine is primarily an antihistamine, so 'All of the above' is not the best answer."
+            },
+            {
+                q: "Q13. Which of the following belongs to the beta-lactam group of antibiotics?",
+                options: ["A) Penicillins", "B) Cephalosporins", "C) Carbapenems", "D) All of the above"],
+                ans: "D) All of the above",
+                note: ""
+            },
+            {
+                q: "Q14. Which of the following is an example of an unorganized drug in pharmacognosy?",
+                options: ["A) Aloe", "B) Fennel", "C) Senna", "D) Dill"],
+                ans: "A) Aloe",
+                note: ""
+            },
+            {
+                q: "Q15. What is the main medicinal use of Rauwolfia?",
+                options: ["A) Oxytocic", "B) Anaesthetic", "C) Antihypertensive", "D) Anticancer"],
+                ans: "C) Antihypertensive",
+                note: ""
+            },
+            {
+                q: "Q16. Which part of a glycoside is primarily responsible for its therapeutic activity?",
+                options: ["A) Non-sugar part (Aglycone)", "B) Sugar part (Glycone)", "C) Starch", "D) Gelatin"],
+                ans: "A) Non-sugar part (Aglycone)",
+                note: ""
+            },
+            {
+                q: "Q17. Which of the following is a desensitizing agent?",
+                options: ["A) Charcoal", "B) Strontium chloride", "C) Copper sulphate", "D) Dimercaprol"],
+                ans: "B) Strontium chloride",
+                note: ""
+            },
+            {
+                q: "Q18. Which of the following is a non-reducing sugar?",
+                options: ["A) Sucrose", "B) Maltose", "C) Starch", "D) Glycoside"],
+                ans: "A) Sucrose",
+                note: ""
+            },
+            {
+                q: "Q19. What is the study of tissues called?",
+                options: ["A) Myology", "B) Histology", "C) Otology", "D) Cytology"],
+                ans: "B) Histology",
+                note: ""
+            },
+            {
+                q: "Q20. Which is the largest gland in the human body?",
+                options: ["A) Pancreas", "B) Skin", "C) Liver", "D) Intestine"],
+                ans: "C) Liver",
+                note: ""
+            }
+        ];
+
+        let studentData = { name: "", mobile: "", district: "" };
+        let currentQIndex = 0;
+        let selectedAnswers = new Array(questions.length).fill(null);
+        let timer = null;
+        let timeLeft = 30;
+        let adminRecords = [];
+
+        const startScreen = document.getElementById('start-screen');
+        const quizScreen = document.getElementById('quiz-screen');
+        const submitScreen = document.getElementById('submit-screen');
+        const resultScreen = document.getElementById('result-screen');
+        const adminScreen = document.getElementById('admin-screen');
+
+        function startExam() {
+            const nameInput = document.getElementById('name').value.trim();
+            const mobileInput = document.getElementById('mobile').value.trim();
+            const districtInput = document.getElementById('district').value.trim();
+
+            if (nameInput === "" || mobileInput === "" || districtInput === "") {
+                alert("Anugraha kare samasta field sothikbhabe puron karun.");
+                return;
+            }
+
+            if (mobileInput.length !== 10 || isNaN(mobileInput)) {
+                alert("Anugraha kare sothik 10 digit-er mobile number din.");
+                return;
+            }
+
+            studentData.name = nameInput;
+            studentData.mobile = mobileInput;
+            studentData.district = districtInput;
+
+            startScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            loadQuestion(0);
+        }
+
+        function loadQuestion(index) {
+            currentQIndex = index;
+            const qData = questions[index];
+
+            document.getElementById('q-counter').innerText = `Question ${index + 1}/${questions.length}`;
+            document.getElementById('question-text').innerText = qData.q;
+            
+            const optionsContainer = document.getElementById('options-container');
+            optionsContainer.innerHTML = '';
+
+            qData.options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.type = 'button';
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                if (selectedAnswers[index] === opt) {
+                    btn.classList.add('selected');
+                }
+                btn.onclick = () => selectOption(opt, btn);
+                optionsContainer.appendChild(btn);
+            });
+
+            document.getElementById('next-btn').disabled = selectedAnswers[index] === null;
+            resetTimer();
+        }
+
+        function selectOption(option, element) {
+            selectedAnswers[currentQIndex] = option;
+            const allBtns = document.querySelectorAll('.option-btn');
+            allBtns.forEach(b => b.classList.remove('selected'));
+            element.classList.add('selected');
+            document.getElementById('next-btn').disabled = false;
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = 30;
+            updateTimerDisplay();
+
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimerDisplay();
+
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    nextQuestion();
+                }
+            }, 1000);
+        }
+
+        function updateTimerDisplay() {
+            document.getElementById('timer-sec').innerText = timeLeft;
+            const percentage = (timeLeft / 30) * 100;
+            document.getElementById('timer-progress').style.width = percentage + '%';
+        }
+
+        function nextQuestion() {
+            clearInterval(timer);
+            if (currentQIndex < questions.length - 1) {
+                loadQuestion(currentQIndex + 1);
+            } else {
+                showSubmitScreen();
+            }
+        }
+
+        function showSubmitScreen() {
+            quizScreen.classList.add('hidden');
+            submitScreen.classList.remove('hidden');
+        }
+
+        function submitTest() {
+            let score = 0;
+            questions.forEach((q, idx) => {
+                if (selectedAnswers[idx] === q.ans) {
+                    score++;
+                }
+            });
+
+            const payload = {
+                Student_Name: studentData.name,
+                Mobile_No: studentData.mobile,
+                District: studentData.district,
+                Score: `${score}/${questions.length}`,
+                Submitted_At: new Date().toLocaleString()
+            };
+
+            fetch("https://formspree.io/f/mdeajgyv", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            }).catch(err => console.error("Formspree Error:", err));
+
+            adminRecords.push(payload);
+
+            document.getElementById('final-score').innerText = `${score}/${questions.length}`;
+            document.getElementById('student-summary').innerText = `Name: ${studentData.name} | Mobile: ${studentData.mobile} | District: ${studentData.district}`;
+
+            submitScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            generateAnswerKey();
+        }
+
+        function generateAnswerKey() {
+            const container = document.getElementById('answers-list');
+            container.innerHTML = '';
+
+            questions.forEach((q, idx) => {
+                const userAns = selectedAnswers[idx] || "Not Answered";
+                const isCorrect = userAns === q.ans;
+
+                const card = document.createElement('div');
+                card.className = 'q-review-card';
+                card.innerHTML = `
+                    <div class="q-review-title">${q.q}</div>
+                    <div class="q-review-ans"><strong>Your Answer:</strong> <span class="${isCorrect ? 'correct-text' : 'wrong-text'}">${userAns}</span></div>
+                    <div class="q-review-ans"><strong>Correct Answer:</strong> <span class="correct-text">${q.ans}</span></div>
+                    ${q.note ? `<div class="q-review-note"><i class="fas fa-info-circle"></i> ${q.note}</div>` : ''}
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        function toggleAnswerKey() {
+            const keySection = document.getElementById('answer-key-section');
+            keySection.classList.toggle('hidden');
+        }
+
+        function showAdminLogin() {
+            const password = prompt("Admin Panel Access Password din:");
+            if (password === "ANI@2026") {
+                startScreen.classList.add('hidden');
+                adminScreen.classList.remove('hidden');
+                renderAdminData();
+            } else if (password !== null) {
+                alert("Bhul password! Chesta korar jonyo dhonyobad.");
+            }
+        }
+
+        function renderAdminData() {
+            const tbody = document.getElementById('admin-data-rows');
+            tbody.innerHTML = '';
+
+            if (adminRecords.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;">No submissions recorded in this session.</td></tr>`;
+                return;
+            }
+
+            adminRecords.forEach((rec, idx) => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${idx + 1}</td>
+                    <td>${rec.Student_Name}</td>
+                    <td>${rec.Mobile_No}</td>
+                    <td>${rec.District}</td>
+                    <td><strong>${rec.Score}</strong></td>
+                    <td>${rec.Submitted_At}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function showStartScreen() {
+            adminScreen.classList.add('hidden');
+            startScreen.classList.remove('hidden');
+        }
+    </script>
+</body>
+</html>
